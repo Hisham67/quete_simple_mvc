@@ -1,9 +1,16 @@
 <?php
+namespace Model;
 // src/Model/ItemManager.php
 require __DIR__ . '/../../app/db.php';
 
+
+
+Class ItemManager{
+
+
+
 // récupération de tous les items
-function selectAllItems() :array
+public function selectAllItems() :array
 {
     $pdo = new \PDO(DSN, USER, PASS);
     $query = "SELECT * FROM item";
@@ -11,4 +18,6 @@ function selectAllItems() :array
     return $res->fetchAll();
 }
 
+
+}
 ?>

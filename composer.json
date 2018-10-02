@@ -1,0 +1,16 @@
+{
+    "name": "hisha/quete_simple_mvc",
+    "authors": [
+        {
+            "name": "El hachemi AGGOUN",
+            "email": "aggoun67@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    }
+
+}
