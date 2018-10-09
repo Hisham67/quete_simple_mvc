@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../app/dispatcher.php';
 
-$index = new Controller\ItemController();
-$index->index();
+
 
 ?>
