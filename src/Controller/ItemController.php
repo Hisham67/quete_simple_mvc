@@ -1,23 +1,44 @@
 <?php
 namespace Controller;
 use Model\ItemManager;
+
+use Twig_Loader_Filesystem;
+use Twig_Environment;
+
+
+
 Class ItemController{
 
+    private $twig;
 
-    public function index() {
+    public function __construct()
+    {
+        $loader = new Twig_Loader_Filesystem(__DIR__.'/../View');
+        $this->twig = new Twig_Environment($loader);
+    }
 
+    public function index()
+    {
         $itemManager = new ItemManager();
         $items = $itemManager->selectAllItems();
-
-        require __DIR__ . '/../View/Item.php';
+        return $this->twig->render('Item.html.twig', ['items' => $items]);
     }
+
+
+//    public function index() {
+//
+//        $itemManager = new ItemManager();
+//        $items = $itemManager->selectAllItems();
+//
+//        $view = new View();
+//        return $view->render(__DIR__ . '/../View/Item.html.twig', ['items'=> $items]);
+//    }
 
     public function show(int $id)
     {
         $itemManager = new ItemManager();
         $item = $itemManager->selectOneItem($id);
-
-        require __DIR__ . '/../View/showItem.php';
+        return $this->twig->render('showItem.html.twig', ['item' => $item]);
     }
 
 }

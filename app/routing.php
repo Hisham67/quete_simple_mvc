@@ -7,7 +7,7 @@
  */
 $routes = [
     'Item' => [ // Controller
-        ['index', '/items', 'GET'], // action, url, HTTP method
+        ['index', '/', 'GET'], // action, url, HTTP method
         ['show', '/item/{id}', 'GET'], // action, url, HTTP method
     ],
     'category' => [ // Controller
