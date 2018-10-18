@@ -1,35 +1,33 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: hisha
- * Date: 08/10/18
- * Time: 14:59
- */
+
 namespace Model;
-require __DIR__ . '/../../app/db.php';
 
-Class categoryManager{
+use Model\Category;
 
+class categoryManager extends AbstractManager
+{
+    const TABLE = 'category';
 
-
-    public function selectAllcategories() : array
+    public function __construct($pdo)
     {
-        $pdo = new \PDO(DSN, USER, PASS);
-        $query = "SELECT * FROM category";
-        $res = $pdo->query($query);
-        return $res->fetchAll();
+        parent::__construct(self::TABLE, $pdo);
     }
 
-    public function selectOnecategory(int $id) : array
+    public function insert(Category $category): int
     {
-        $pdo = new \PDO(DSN, USER, PASS);
-        $query = "SELECT * FROM category WHERE id = :id";
-        $statement = $pdo->prepare($query);
-        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
-        $statement->execute();
-        // contrairement à fetchAll(), fetch() ne renvoie qu'un seul résultat
-        return $statement->fetch();
+        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (`name`) VALUES (:name)");
+        $statement->bindValue('name', $category->getName(), \PDO::PARAM_STR);
+        if ($statement->execute()) {
+            return $this->pdo->lastInsertId();
+        }
     }
 
+    public function delete(Category $category): int
+    {
+        $statement = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id = :id");
+        $statement ->bindValue('id', $category->getId(), \PDO::PARAM_INT);
+        return $statement->execute();
+    }
 }
+
 ?>
